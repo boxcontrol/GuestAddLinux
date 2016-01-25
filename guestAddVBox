@@ -1,0 +1,30 @@
+#!/bin/bash
+clear
+echo 'Going to install Guest Additions VirtualBox Linux ...'
+echo 'Checking if sytem is Debian or RedHat based ...'
+echo
+if [ -f /etc/redhat-release ]; then
+    echo 'Your system is RedHat based'
+    echo
+    echo 'Updating system and installing nessecary packages ...'
+    echo
+    sudo yum update -y
+    sudo yum install dkms binutils gcc make patch libgomp glibc-headers blibc-devel kernel-headers kernel-devel
+fi
+
+if [ -f /etc/lsb-release ]; then
+    echo 'Your system is Debian based:'
+    echo
+    echo 'Updateting system and installing nesseccary packages ...'
+    echo
+    sudo apt-get update -y
+    sudo apt-get install build-essential module-assistant
+    sudo m-a prepare
+fi
+
+echo "Mount the guest addition ISO from:"
+echo "Devices/Insert Guest Additions CD image"
+echo 
+sudo sh /media/VBOX*/VBoxLinuxAdditions.run
+
+    
